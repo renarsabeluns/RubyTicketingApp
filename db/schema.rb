@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_17_135157) do
+ActiveRecord::Schema.define(version: 2021_12_22_204943) do
+
+  create_table "answers", charset: "utf8", options: "ENGINE=MyISAM", force: :cascade do |t|
+    t.text "content"
+    t.integer "task_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", charset: "utf8", options: "ENGINE=MyISAM", force: :cascade do |t|
+    t.string "content"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", charset: "utf8", options: "ENGINE=MyISAM", force: :cascade do |t|
+    t.boolean "admin"
+    t.boolean "tech"
+    t.boolean "support"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
