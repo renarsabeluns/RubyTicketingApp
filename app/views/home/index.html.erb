@@ -1,3 +1,32 @@
 <title>Rails Ticketing Index Page</title>
 <h1>Home#indexxx</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+
+<%=
+require 'nokogiri'
+require 'open-uri'
+url='https://login0.directo.ee/xmlcore/aim_solutions_lv/xmlcore.asp?get=1&what=event2&key=2A0723811B26C14B0EDC4EE203DE9C37'
+# Fetch and parse HTML document
+doc = Nokogiri::HTML(URI.open(url))
+puts doc.to_xml
+# Search for nodes by css
+#doc.css('div.line', 'article h2').each do |link|
+ # puts link.content
+#end
+#puts doc
+# Search for nodes by xpath
+#doc.xpath('//COMMON').each do |link|
+#  puts link.content
+#end
+
+# Or mix and match
+#doc.xpath('//unasigned_event_prev/@startdate').each do |link|
+#  puts link.content
+#end
+
+doc.xpath('//unasigned_event_prev/@code').each do |link|
+  puts link.content
+end
+
+
+%>
