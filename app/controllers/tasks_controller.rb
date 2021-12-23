@@ -8,6 +8,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    authorize! :update, @task
   end
 
   # GET /tasks/new
@@ -17,6 +18,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    authorize! :update, @task
   end
 
   # POST /tasks or /tasks.json
