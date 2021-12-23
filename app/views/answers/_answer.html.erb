@@ -1,3 +1,5 @@
 <p> <%= answer.content%>
-    <%= link_to "Delete", task_answer_path(answer.task,answer),method :delete%>
+<% if can? :destroy, answer %>
+    <%= link_to "Delete", task_answer_path(answer.task,answer),method: :delete%>
+    <%end%>
 </p>

@@ -8,6 +8,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    authorize! :update, @task
   end
 
   # GET /tasks/new
@@ -17,11 +18,13 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    authorize! :update, @task
   end
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @user = current_user
+    @task = @user.Task.build(task_params)
 
     respond_to do |format|
       if @task.save

@@ -1,26 +1,29 @@
 <p id="notice"><%= notice %></p>
 <h1>Tasks</h1>
+<%= flash[:alert] %>
 <%= link_to 'New Task', new_task_path%>
 <br>
 <br>
 
 <% @tasks.each do |task|%>
   <div style="border: 1px solid black; background-color:blue;"></div>
-    <h3><%= task.title%></h3>
+    <h3><%= task.content %></h3>
     <%= time_ago_in_words(task.created_at)%> ago by <%= task.user.email%>
     <br>
-
-      <%=link_to 'Edit', edit_task_path(task)%>
-      <%= link_to 'Destroy', task, method :delete, data: {confirm: 'Are you sure you want to delete this?'}%>
-
-      <%if task.answers.any?%>
+    <% if can? :update, task%>
+      <%= link_to 'Edit', edit_task_path(task)%>
+    <%end%>
+    <% if can? :destroy, task%>
+      <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%end%>
+      <%if task.answer.any?%>
         <h4>Answers</h4>
-        <%= render task.answers%>
+        <%= render task.answer%>
       <%end%>
 
       <hr>
       <p>Add Answer</p>
-      <%= form_for ([task, task.answers.build]) do |f|%>
+      <%= form_for ([task, task.answer.build]) do |f|%>
         <%= f.text_area :content %>
         <%= submit_tag "Add" %>
       <%end%>
